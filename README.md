@@ -1,81 +1,138 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# EduConnect - Plataforma de Red Social Académica
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Descripción
+EduConnect es una plataforma de red social enfocada en el ámbito académico que permite a estudiantes y docentes compartir publicaciones, realizar comentarios y gestionar usuarios con roles diferenciados. La plataforma está construida con NestJS, TypeORM y Neon Tech para la base de datos.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Características Principales
+- Sistema de autenticación y autorización
+- Roles de usuario (Publicador y Administrador)
+- Gestión de publicaciones y comentarios
+- Persistencia de datos con PostgreSQL
+- API RESTful
+- Validación de datos
+- Middleware de seguridad
 
-## Description
+## Requisitos Previos
+- Node.js (v14 o superior)
+- npm (v6 o superior)
+- PostgreSQL (se recomienda usar Neon Tech)
+- Git
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Tecnologías Utilizadas
+- NestJS
+- TypeORM
+- PostgreSQL (Neon Tech)
+- JWT para autenticación
+- Class Validator
+- bcrypt para encriptación
 
-## Installation
+## Instalación
 
+1. Clonar el repositorio
 ```bash
-pnpm install
+git clone https://github.com/tu-usuario/educonnect.git
+cd educonnect
 ```
 
-## Running the app
-
-Start app
-```
-pnpm run start
+2. Instalar dependencias
+```bash
+npm install
 ```
 
-Start dev server
-```
-pnpm run start:dev
-```
-
-Start prod server
-```
-pnpm run start:prod
+3. Configurar variables de entorno
+Crear un archivo `.env` en la raíz del proyecto con la siguiente estructura:
+```env
+DATABASE_URL=postgres://user:password@localhost:5432/educonnect
+JWT_SECRET=your_jwt_secret_key
+PORT=3000
 ```
 
-## Test
+4. Iniciar la aplicación
+```bash
+# Modo desarrollo
+npm run start:dev
 
-Tests
-```
-pnpm run test
-```
-
-E2E Tests
-```
-pnpm run test:e2e
+# Modo producción
+npm run build
+npm run start:prod
 ```
 
-Test Coverage
+## Estructura del Proyecto
 ```
-pnpm run test:cov
+src/
+  ├── entities/          # Modelos de datos
+  ├── dto/              # Objetos de transferencia de datos
+  ├── services/         # Lógica de negocio
+  ├── controllers/      # Controladores de la API
+  ├── middleware/       # Middleware personalizado
+  ├── app.module.ts     # Módulo principal
+  └── main.ts          # Punto de entrada
 ```
 
-## Support
+## API Endpoints
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Autenticación
+- POST `/users/register` - Registro de usuario
+- POST `/users/login` - Inicio de sesión
 
-## Stay in touch
+### Usuarios
+- GET `/users` - Listar usuarios (Admin)
+- PUT `/users/:id` - Actualizar usuario (Admin)
+- DELETE `/users/:id` - Desactivar usuario (Admin)
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Publicaciones
+- POST `/posts` - Crear publicación
+- GET `/posts` - Listar publicaciones
+- GET `/posts/:id` - Obtener publicación específica
+- PUT `/posts/:id` - Actualizar publicación
+- DELETE `/posts/:id` - Eliminar publicación (Admin)
 
-## License
+### Comentarios
+- POST `/comments` - Crear comentario
+- GET `/comments` - Listar comentarios
+- GET `/comments/:id` - Obtener comentario específico
+- PUT `/comments/:id` - Actualizar comentario
+- DELETE `/comments/:id` - Eliminar comentario (Admin)
 
-Nest is [MIT licensed](LICENSE).
+## Roles y Permisos
+
+### Publicador
+- Crear publicaciones
+- Crear comentarios
+- Editar sus propias publicaciones y comentarios
+- Ver todas las publicaciones y comentarios
+
+### Administrador
+- Todas las funciones del Publicador
+- Gestionar usuarios
+- Eliminar cualquier publicación o comentario
+- Ver lista de usuarios
+
+## Seguridad
+- Autenticación mediante JWT
+- Contraseñas encriptadas con bcrypt
+- Validación de datos en todas las peticiones
+- Middleware de autorización basado en roles
+
+## Configuración de Base de Datos
+1. Crear una cuenta en [Neon Tech](https://neon.tech)
+2. Crear un nuevo proyecto
+3. Obtener la URL de conexión
+4. Actualizar la variable DATABASE_URL en el archivo .env
+
+## Scripts Disponibles
+```bash
+# Desarrollo
+npm run start:dev
+
+# Producción
+npm run build
+npm run start:prod
+
+# Tests
+npm run test
+npm run test:e2e
+
+# Lint
+npm run lint
+```
